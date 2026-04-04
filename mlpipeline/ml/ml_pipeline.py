@@ -14,6 +14,17 @@ from sklearn.metrics import (
     confusion_matrix
 )
 
+
+# 1. loads data/titanic_processed.csv
+# 2. encodes Gender
+# 3. encodes Embarked
+# 4. selects the final feature set
+# 5. splits the dataset into 70% training and 30% testing
+# 6. trains RandomForestClassifier
+# 7. trains LogisticRegression
+# 8. logs accuracy, precision, recall, F1, confusion matrix values, system metrics, and training time to MLflow
+# 9. saves each trained model as an MLflow artifact
+
 mlflow.set_tracking_uri("file:./mlruns")
 
 def prepare_data():

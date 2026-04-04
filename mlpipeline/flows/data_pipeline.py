@@ -9,12 +9,26 @@ from prefect import flow, task, get_run_logger
 os.makedirs("data", exist_ok=True)
 os.makedirs("plots", exist_ok=True)
 
+# 1. reads data/titanic.csv
+# 2. prints summary statistics, missing values, and data types
+# 3. fills missing Age values with the median
+# 4. fills missing Embarked values with the mode
+# 5. creates FamilySize and IsAlone
+# 6. drops Cabin, Name, Ticket, and PassengerId
+# 7. normalizes numeric columns
+# 8. saves data/titanic_processed.csv
+# 9. creates EDA plots in plots/
+# 10. schedules the flow every 3 minutes in Prefect Cloud
+
+
+# This task reads the Titanic dataset from local storage and returns a DataFrame. It also logs the number of records ingested.
 @task(name="Data Ingestion")
 def ingest_data():
     logger = get_run_logger()
     df = pd.read_csv("data/titanic.csv")
     logger.info(f"Ingested {len(df)} records from local storage.")
     return df
+
 
 @task(name="Data Pre-processing")
 def preprocess(df):
